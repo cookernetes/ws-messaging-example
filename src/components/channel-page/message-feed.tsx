@@ -4,10 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import type { MessageWithAuthor } from "@/lib/server/db/schema";
 import Message from "@/components/channel-page/message";
 import MessageInputForm from "@/components/channel-page/message-input-form";
-import { useToast } from "@/hooks/use-toast";
 import type { Socket } from "socket.io-client";
 import { getSocket } from "@/lib/socket";
-import { revalidatePath } from "next/cache";
 
 export default function MessageFeed({
   initialMessageData,
@@ -22,7 +20,6 @@ export default function MessageFeed({
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [transport, setTransport] = useState<string | null>(null);
   const socketRef = useRef<Socket | null>(null);
-  const { toast } = useToast();
 
   useEffect(() => {
     const socket = getSocket(channelId);
